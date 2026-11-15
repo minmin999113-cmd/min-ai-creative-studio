@@ -1,0 +1,101 @@
+
+
+<!DOCTYPE html>
+<html lang="my">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Min AI Creative Studio</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#090d18;color:#fff;font-family:Arial,sans-serif}
+header{padding:22px;background:#11182a;border-bottom:1px solid #29344d}
+h1{color:#65a5ff;margin:0}
+header p{color:#aab8d3}
+main{max-width:1000px;margin:auto;padding:20px}
+nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+button{background:#17233c;color:#fff;border:1px solid #344766;padding:13px;border-radius:10px;cursor:pointer}
+button:hover{background:#2455a0}
+.panel{background:#11182a;border:1px solid #29344d;border-radius:15px;padding:20px;margin-bottom:18px}
+input,textarea,select{width:100%;padding:14px;background:#080d18;color:white;border:1px solid #344766;border-radius:9px;margin:8px 0}
+textarea{min-height:120px}
+.action{background:#2878ff;width:100%;font-weight:bold}
+.status{color:#8ab8ff;margin-top:12px}
+.track{background:#080d18;padding:15px;border-radius:10px;margin-top:10px}
+footer{text-align:center;padding:25px;color:#8291aa}
+</style>
+</head>
+<body>
+<header>
+<h1>🎬 Min AI Creative Studio</h1>
+<p>AI Video • Image • Voice • Professional Editing</p>
+</header>
+<main>
+<nav>
+<button onclick="show('video')">🎥 Video AI</button>
+<button onclick="show('image')">🖼 Image AI</button>
+<button onclick="show('voice')">🎙 Myanmar Voice</button>
+<button onclick="show('edit')">✂️ Timeline</button>
+</nav>
+
+<section class="panel" id="video">
+<h2>🎥 AI Video Generator</h2>
+<label>Video Prompt</label>
+<textarea id="vp" placeholder="Describe your video scene..."></textarea>
+<label>Aspect Ratio</label>
+<select id="ratio"><option>16:9</option><option>9:16</option><option>1:1</option></select>
+<button class="action" onclick="demo('Video')">Generate Video</button>
+<p class="status" id="vs">Ready</p>
+</section>
+
+<section class="panel" id="image">
+<h2>🖼 AI Image Generator</h2>
+<textarea id="ip" placeholder="Describe your image..."></textarea>
+<button class="action" onclick="demo('Image')">Generate Image</button>
+<p class="status" id="is">Ready</p>
+</section>
+
+<section class="panel" id="voice">
+<h2>🎙 Myanmar AI Voice</h2>
+<textarea id="txt" placeholder="မြန်မာစာ အသံပြောင်းရန် ရိုက်ထည့်ပါ"></textarea>
+<button class="action" onclick="speak()">Speak Myanmar Text</button>
+<p class="status" id="ts">Ready</p>
+</section>
+
+<section class="panel" id="edit">
+<h2>✂️ Professional Timeline</h2>
+<input type="file" id="media" accept="video/*,audio/*,image/*">
+<div class="track" id="track">🎞 Timeline — Media မထည့်ရသေးပါ</div>
+<video id="preview" controls style="width:100%;display:none;margin-top:15px"></video>
+</section>
+</main>
+<footer>Min AI Creative Studio © 2026</footer>
+<script>
+function show(id){
+document.getElementById(id).scrollIntoView({behavior:"smooth"});
+}
+function demo(type){
+document.getElementById(type==="Video"?"vs":"is").textContent=
+"Demo UI ဖြစ်ပါတယ်။ AI API ချိတ်ဆက်ရန် လိုအပ်ပါသည်။";
+}
+function speak(){
+let t=document.getElementById("txt").value;
+if(!t)return;
+let u=new SpeechSynthesisUtterance(t);
+u.lang="my-MM";
+speechSynthesis.speak(u);
+document.getElementById("ts").textContent="မြန်မာအသံ စမ်းသပ်နေပါသည်။";
+}
+document.getElementById("media").onchange=e=>{
+let f=e.target.files[0];
+if(!f)return;
+document.getElementById("track").textContent="🎞 "+f.name;
+if(f.type.startsWith("video/")){
+let v=document.getElementById("preview");
+v.src=URL.createObjectURL(f);
+v.style.display="block";
+}
+};
+</script>
+</body>
+</html>
